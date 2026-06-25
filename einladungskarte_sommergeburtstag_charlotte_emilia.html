@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Einladung zum Sommergeburtstag | Charlotte & Emilia</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display & Quicksand -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <!-- FontAwesome für Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti für Interaktion -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #fef9c3 0%, #fff7ed 50%, #fee2e2 100%);
+        }
+        .serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Schwebende Animation für sommerliche Deko */
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        @keyframes float-delayed {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(12px) rotate(-8deg); }
+        }
+        .floating-element-1 {
+            animation: float-slow 6s ease-in-out infinite;
+        }
+        .floating-element-2 {
+            animation: float-delayed 8s ease-in-out infinite;
+        }
+        /* Rüttel-Animation für leere Eingabefelder */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+        .animate-shake {
+            animation: shake 0.2s ease-in-out 0s 2;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-start p-4 sm:p-6 relative overflow-x-hidden selection:bg-amber-200">
+
+    <!-- Dekorative schwebende Elemente im Hintergrund -->
+    <div class="absolute top-10 left-4 sm:left-10 text-4xl sm:text-5xl floating-element-1 pointer-events-none select-none opacity-80">🌸</div>
+    <div class="absolute top-40 right-4 sm:right-16 text-4xl sm:text-5xl floating-element-2 pointer-events-none select-none opacity-80">☀️</div>
+    <div class="absolute bottom-40 left-6 text-4xl floating-element-2 pointer-events-none select-none opacity-60">🍋</div>
+    <div class="absolute bottom-10 right-8 text-4xl floating-element-1 pointer-events-none select-none opacity-60">🍉</div>
+
+    <!-- Haupt-Einladungskarte -->
+    <main class="w-full max-w-xl bg-white/80 backdrop-blur-md rounded-3xl shadow-xl border border-orange-100/50 p-6 sm:p-8 mt-6 sm:mt-10 mb-6 relative z-10 transition-all duration-300 hover:shadow-2xl">
+        
+        <!-- Blumenkranz / Deko Header -->
+        <div class="text-center mb-6">
+            <span class="text-amber-500 text-xs font-bold uppercase tracking-widest bg-amber-100 px-3 py-1 rounded-full">Hurra, wir feiern! 🎉</span>
+            <div class="flex justify-center items-center gap-3 my-4">
+                <span class="h-px w-10 bg-gradient-to-r from-transparent to-amber-300"></span>
+                <span class="text-2xl">🎈</span>
+                <span class="h-px w-10 bg-gradient-to-l from-transparent to-amber-300"></span>
+            </div>
+            <h1 class="serif-title text-4xl sm:text-5xl font-extrabold text-amber-950 leading-tight animate-pulse-slow">
+                Sommergeburtstag
+            </h1>
+            <p class="text-lg sm:text-xl text-amber-800 font-medium mt-2">
+                von Charlotte & Emilia
+            </p>
+        </div>
+
+        <!-- Das Hauptevent-Detail-Panel -->
+        <div class="bg-amber-50/70 border border-amber-100 rounded-2xl p-6 text-center mb-8 relative overflow-hidden">
+            <!-- Sonnenstrahlen-Deko im Hintergrund -->
+            <div class="absolute -right-8 -top-8 w-24 h-24 bg-amber-200/20 rounded-full blur-xl"></div>
+            
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-amber-200/60">
+                <!-- Datum -->
+                <div class="flex flex-col items-center justify-center p-2">
+                    <span class="text-amber-600 mb-1"><i class="fa-regular fa-calendar-days text-xl"></i></span>
+                    <span class="text-xs uppercase tracking-wider text-amber-800 font-semibold">Wann</span>
+                    <span class="font-bold text-amber-950 text-sm sm:text-base mt-1">Samstag, 25. Juli 2026</span>
+                </div>
+                <!-- Uhrzeit -->
+                <div class="flex flex-col items-center justify-center p-2">
+                    <span class="text-amber-600 mb-1"><i class="fa-regular fa-clock text-xl"></i></span>
+                    <span class="text-xs uppercase tracking-wider text-amber-800 font-semibold">Uhrzeit</span>
+                    <span class="font-bold text-amber-950 text-sm sm:text-base mt-1">14:00 - 17:00 Uhr</span>
+                </div>
+                <!-- Ort -->
+                <div class="flex flex-col items-center justify-center p-2">
+                    <span class="text-amber-600 mb-1"><i class="fa-solid fa-location-dot text-xl"></i></span>
+                    <span class="text-xs uppercase tracking-wider text-amber-800 font-semibold">Wo</span>
+                    <div class="relative group mt-1">
+                        <!-- Klickbar zum Bearbeiten für den Benutzer -->
+                        <span id="event-location" class="font-bold text-amber-950 text-sm sm:text-base cursor-pointer hover:bg-amber-100 px-1 rounded transition-colors" title="Klicken zum Bearbeiten">
+                            Zugweg 12, Köln Südstadt
+                        </span>
+                        <i class="fa-solid fa-pen text-[10px] text-amber-400 opacity-50 ml-1"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Einladungstext (Kindergeburtstag Ansprache) -->
+        <div class="text-center space-y-4 mb-8 text-amber-900/90 leading-relaxed px-2">
+            <!-- Dynamische Begrüßung -->
+            <p id="guest-greeting" class="font-semibold text-xl text-amber-950">Hallo liebe Freunde! 🍰🍭</p>
+            <p>
+                Wir werfen eine große Party und wollen gemeinsam mit euch unseren Sommergeburtstag feiern!
+            </p>
+
+            <!-- Hinweis für die Eltern ab 17:00 Uhr -->
+            <div class="bg-amber-100/60 border border-amber-200/80 rounded-2xl p-4 mt-6 text-amber-950 font-medium text-sm flex flex-col sm:flex-row items-center justify-center gap-2 shadow-sm">
+                <span class="text-2xl">👨‍👩‍👧‍👦</span>
+                <span class="text-center sm:text-left">
+                    <strong>Liebe Mamas & Papas:</strong> Ab <strong>17:00 Uhr</strong> dürft ihr gerne dazukommen, um ein kühles Getränk mit uns zu schlürfen und den Geburtstag gemütlich ausklingen zu lassen!
+                </span>
+            </div>
+        </div>
+
+        <!-- Countdown Timer -->
+        <div class="mb-8 p-4 bg-orange-50/60 rounded-2xl border border-orange-100 text-center">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-orange-800 mb-3">Noch so oft schlafen ⏳</h3>
+            <div class="grid grid-cols-4 gap-2 max-w-xs mx-auto text-orange-950">
+                <div class="bg-white/90 rounded-xl p-2 shadow-sm">
+                    <span id="countdown-days" class="block text-xl font-bold">00</span>
+                    <span class="text-[10px] uppercase text-orange-700 font-semibold">Tage</span>
+                </div>
+                <div class="bg-white/90 rounded-xl p-2 shadow-sm">
+                    <span id="countdown-hours" class="block text-xl font-bold">00</span>
+                    <span class="text-[10px] uppercase text-orange-700 font-semibold">Std</span>
+                </div>
+                <div class="bg-white/90 rounded-xl p-2 shadow-sm">
+                    <span id="countdown-minutes" class="block text-xl font-bold">00</span>
+                    <span class="text-[10px] uppercase text-orange-700 font-semibold">Min</span>
+                </div>
+                <div class="bg-white/90 rounded-xl p-2 shadow-sm">
+                    <span id="countdown-seconds" class="block text-xl font-bold">00</span>
+                    <span class="text-[10px] uppercase text-orange-700 font-semibold">Sek</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- INTERAKTIVER RSVP-BEREICH (Zusagen) -->
+        <div class="border-t border-amber-100 pt-8 mb-8">
+            <h3 class="serif-title text-2xl font-bold text-amber-950 text-center mb-1">Bist du dabei?</h3>
+            <p class="text-xs text-amber-700 text-center mb-6">Bitte sag uns bis zum 15. Juli Bescheid, ob du mitfeierst!</p>
+            
+            <!-- Namen-Eingabefeld (Neu & Pflicht vor dem Abschicken) -->
+            <div id="rsvp-name-container" class="max-w-xs mx-auto mb-6">
+                <label for="rsvp-name" class="block text-xs font-bold text-amber-800 uppercase tracking-wider mb-2 text-center">Name des Kindes</label>
+                <input type="text" id="rsvp-name" placeholder="z. B. Jonas oder Hanna ✍️" class="w-full text-center px-4 py-2.5 border border-amber-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white/70 font-semibold text-amber-950 placeholder:text-amber-700/40 transition-all">
+                <p id="rsvp-name-error" class="hidden text-xs text-rose-500 font-bold mt-1.5 text-center animate-pulse">
+                    <i class="fa-solid fa-circle-exclamation mr-1"></i> Bitte gib zuerst einen Namen ein! 😊
+                </p>
+            </div>
+
+            <!-- RSVP Formular / Buttons -->
+            <div id="rsvp-actions" class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button onclick="handleRSVP(true)" class="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-full shadow-lg shadow-emerald-500/20 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-check"></i> Juhu, ich bin dabei! 🎈
+                </button>
+                <button onclick="handleRSVP(false)" class="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-rose-400 to-pink-500 text-white font-bold rounded-full shadow-lg shadow-rose-400/20 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-xmark"></i> Ich kann leider nicht 😢
+                </button>
+            </div>
+
+            <!-- Bestätigungsnachricht (Zusage) -->
+            <div id="rsvp-status" class="hidden text-center bg-emerald-50 border border-emerald-200 rounded-2xl p-4 text-emerald-900 animate-bounce-short">
+                <p class="font-bold text-lg">Super! 🎉 Wir freuen uns riesig auf <span id="rsvp-success-name">dich</span>!</p>
+                <button onclick="resetRSVP()" class="text-xs text-emerald-600 underline mt-2 hover:text-emerald-800">Antwort ändern</button>
+            </div>
+            
+            <!-- Bestätigungsnachricht (Absage) -->
+            <div id="rsvp-status-declined" class="hidden text-center bg-rose-50 border border-rose-200 rounded-2xl p-4 text-rose-900">
+                <p class="font-bold">Schade! 😢 Wir werden <span id="rsvp-declined-name">dich</span> sehr vermissen.</p>
+                <button onclick="resetRSVP()" class="text-xs text-rose-600 underline mt-2 hover:text-rose-800">Antwort ändern</button>
+            </div>
+        </div>
+
+        <!-- MUSIK-WÜNSCHE -->
+        <div class="border-t border-amber-100 pt-8">
+            <h3 class="serif-title text-xl font-bold text-amber-950 flex items-center gap-2 mb-2">
+                <span>🎵</span> Kinder-Disko-Wünsche
+            </h3>
+            <p class="text-xs text-amber-700 mb-4">Welcher Song darf bei unserer Stoptanz- oder Disko-Runde nicht fehlen?</p>
+            
+            <div class="flex gap-2">
+                <input type="text" id="song-input" placeholder="Liedtitel oder Band (z.B. Rolf Zuckowski, Volker Rosin...)" class="flex-1 px-4 py-2 border border-amber-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white/50 text-sm">
+                <button onclick="addSongWish()" class="bg-amber-950 hover:bg-black text-white font-bold px-4 py-2 rounded-xl text-sm transition-colors shadow-md">
+                    Wünschen
+                </button>
+            </div>
+            <div id="song-success" class="hidden text-xs text-emerald-600 mt-2 font-semibold">
+                Dein Wunschlied steht auf der Liste! 🎶
+            </div>
+            <ul id="song-list" class="mt-3 space-y-1 text-xs text-amber-900">
+                <!-- Dynamische Songliste -->
+            </ul>
+        </div>
+
+    </main>
+
+    <!-- LINK-GENERATOR (Nur für die einladenden Eltern sichtbar/nutzbar) -->
+    <section class="w-full max-w-xl bg-amber-50/90 backdrop-blur-md rounded-2xl shadow-md border border-amber-200/60 p-4 mb-16 relative z-10 transition-all">
+        <button onclick="toggleGenerator()" class="w-full flex justify-between items-center text-sm font-bold text-amber-950 hover:text-amber-800 transition-colors">
+            <span class="flex items-center gap-2">
+                <span>🔗</span> Einladungs-Links für Gäste erstellen
+            </span>
+            <i id="generator-chevron" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
+        </button>
+        
+        <div id="generator-content" class="hidden mt-4 pt-4 border-t border-amber-200/50 space-y-3">
+            <p class="text-xs text-amber-900 leading-relaxed">
+                Tippe unten den Namen des eingeladenen Kindes ein. Unser Generator erstellt dir sofort einen individuellen Link mit einem verschlüsselten (Base64) Parameter. Wenn das Kind diesen Link öffnet, wird es direkt namentlich begrüßt!
+            </p>
+            <div class="flex flex-col sm:flex-row gap-2">
+                <input type="text" id="generator-name" placeholder="Name des Kindes (z.B. Jonas)" class="flex-1 px-4 py-2 border border-amber-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white/95 text-sm">
+                <button onclick="generateGuestLink()" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-4 py-2 rounded-xl text-sm transition-all shadow-sm">
+                    Link erstellen
+                </button>
+            </div>
+            
+            <div id="generated-link-box" class="hidden space-y-2 pt-2">
+                <p class="text-xs font-bold text-amber-950">Dein personalisierter Link:</p>
+                <div class="flex items-center gap-2 bg-white/90 p-3 rounded-xl border border-amber-200 text-xs text-amber-950 break-all shadow-inner">
+                    <span id="generated-url" class="flex-1 select-all font-mono font-medium"></span>
+                    <button onclick="copyGeneratedLink()" class="bg-amber-100 hover:bg-amber-200 text-amber-950 px-3 py-2 rounded-lg transition-all font-bold flex items-center gap-1.5 shrink-0 shadow-sm active:scale-95">
+                        <i class="fa-regular fa-copy"></i> Kopieren
+                    </button>
+                </div>
+                <p id="copy-confirm" class="hidden text-xs text-emerald-600 font-bold flex items-center gap-1">
+                    <span>✓</span> In Zwischenablage kopiert! Bereit zum Verschicken.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer mit Hinweisen -->
+    <footer class="text-center text-xs text-amber-800/60 pb-10 z-10 max-w-md">
+        <p>Erstellt für den Sommergeburtstag 2026 von Charlotte & Emilia.</p>
+        <p class="mt-1">Tippe auf den Veranstaltungsort, um ihn anzupassen.</p>
+    </footer>
+
+    <!-- Script für Logik -->
+    <script>
+        // Ziel-Datum für den Countdown: 25. Juli 2026, 14:00 Uhr
+        const targetDate = new Date('2026-07-25T14:00:00').getTime();
+
+        // Base64 UTF-8 sichere Funktionen
+        function utf8_to_b64(str) {
+            return btoa(unescape(encodeURIComponent(str)));
+        }
+
+        function b64_to_utf8(str) {
+            return decodeURIComponent(escape(atob(str)));
+        }
+
+        // Überprüfung auf URL-Parameter beim Laden der Seite
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const encodedGuest = urlParams.get('g');
+
+            if (encodedGuest) {
+                try {
+                    const guestName = b64_to_utf8(encodedGuest);
+                    if (guestName.trim()) {
+                        // Personalisierten Gruß einsetzen
+                        document.getElementById('guest-greeting').innerHTML = `Hallo liebe/r ${escapeHtml(guestName)}! 🍰🍭`;
+                        // Namen auch direkt in das RSVP-Eingabefeld vorschreiben
+                        document.getElementById('rsvp-name').value = guestName;
+                    }
+                } catch (e) {
+                    console.warn("Der Base64-Parameter konnte nicht dekodiert werden.", e);
+                }
+            }
+        });
+
+        // Link-Generator Funktionen
+        function toggleGenerator() {
+            const content = document.getElementById('generator-content');
+            const chevron = document.getElementById('generator-chevron');
+            content.classList.toggle('hidden');
+            chevron.classList.toggle('rotate-180');
+        }
+
+        function generateGuestLink() {
+            const nameInput = document.getElementById('generator-name');
+            const name = nameInput.value.trim();
+            if (!name) return;
+
+            const b64 = utf8_to_b64(name);
+            
+            // Ermittelt die aktuelle URL ohne alte Parameter
+            const baseUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
+            const finalUrl = `${baseUrl}?g=${b64}`;
+
+            document.getElementById('generated-url').innerText = finalUrl;
+            document.getElementById('generated-link-box').classList.remove('hidden');
+        }
+
+        function copyGeneratedLink() {
+            const urlText = document.getElementById('generated-url').innerText;
+            
+            // Clipboard Fallback für iframe-Umgebungen
+            const el = document.createElement('textarea');
+            el.value = urlText;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            const confirmMsg = document.getElementById('copy-confirm');
+            confirmMsg.classList.remove('hidden');
+            setTimeout(() => {
+                confirmMsg.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Countdown Timer Logik
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference < 0) {
+                document.getElementById('countdown-days').innerText = '00';
+                document.getElementById('countdown-hours').innerText = '00';
+                document.getElementById('countdown-minutes').innerText = '00';
+                document.getElementById('countdown-seconds').innerText = '00';
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown-days').innerText = String(days).padStart(2, '0');
+            document.getElementById('countdown-hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('countdown-minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('countdown-seconds').innerText = String(seconds).padStart(2, '0');
+        }
+
+        // Timer sekündlich updaten
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Ort-Bearbeitungs-Logik
+        const locationElement = document.getElementById('event-location');
+        locationElement.addEventListener('click', () => {
+            const currentLoc = locationElement.innerText.trim();
+            const newLoc = prompt("Gib den neuen Veranstaltungsort ein:", currentLoc);
+            if (newLoc !== null && newLoc.trim() !== "") {
+                locationElement.innerText = newLoc;
+                localStorage.setItem('sommergeburtstag_location', newLoc);
+            }
+        });
+
+        // Gespeicherten Ort laden (Standardwert auf neue Adresse setzen)
+        const savedLocation = localStorage.getItem('sommergeburtstag_location');
+        if (savedLocation) {
+            locationElement.innerText = savedLocation;
+        } else {
+            locationElement.innerText = "Zugweg 12, Köln Südstadt";
+        }
+
+        // RSVP / Zu- und Absagen Logik
+        function handleRSVP(isComing, isRestoring = false) {
+            const nameInput = document.getElementById('rsvp-name');
+            const name = nameInput.value.trim();
+            const errorElement = document.getElementById('rsvp-name-error');
+
+            // Validierung: Wenn das Namensfeld leer ist
+            if (!name) {
+                errorElement.classList.remove('hidden');
+                nameInput.classList.add('border-rose-400', 'bg-rose-50/50', 'animate-shake');
+                nameInput.focus();
+                
+                // Rüttel-Klasse nach Animation wieder entfernen
+                setTimeout(() => {
+                    nameInput.classList.remove('animate-shake');
+                }, 400);
+                return;
+            }
+
+            // Validierungsstile zurücksetzen
+            errorElement.classList.add('hidden');
+            nameInput.classList.remove('border-rose-400', 'bg-rose-50/50');
+
+            const actionsDiv = document.getElementById('rsvp-actions');
+            const nameContainer = document.getElementById('rsvp-name-container');
+            const statusSuccess = document.getElementById('rsvp-status');
+            const statusDeclined = document.getElementById('rsvp-status-declined');
+
+            // Bedienelemente ausblenden
+            actionsDiv.classList.add('hidden');
+            nameContainer.classList.add('hidden');
+
+            if (isComing) {
+                document.getElementById('rsvp-success-name').innerText = name;
+                statusSuccess.classList.remove('hidden');
+                if (!isRestoring) {
+                    triggerConfetti();
+                }
+            } else {
+                document.getElementById('rsvp-declined-name').innerText = name;
+                statusDeclined.classList.remove('hidden');
+            }
+
+            localStorage.setItem('sommergeburtstag_rsvp', isComing ? 'yes' : 'no');
+            localStorage.setItem('sommergeburtstag_rsvp_name', name);
+        }
+
+        function resetRSVP() {
+            document.getElementById('rsvp-actions').classList.remove('hidden');
+            document.getElementById('rsvp-name-container').classList.remove('hidden');
+            document.getElementById('rsvp-status').classList.add('hidden');
+            document.getElementById('rsvp-status-declined').classList.add('hidden');
+            
+            // Name nicht löschen, sondern stehenlassen, damit man ihn korrigieren kann
+            localStorage.removeItem('sommergeburtstag_rsvp');
+            localStorage.removeItem('sommergeburtstag_rsvp_name');
+        }
+
+        // Gespeichertes RSVP laden
+        const savedRSVP = localStorage.getItem('sommergeburtstag_rsvp');
+        const savedName = localStorage.getItem('sommergeburtstag_rsvp_name');
+        if (savedRSVP && savedName) {
+            document.getElementById('rsvp-name').value = savedName;
+            handleRSVP(savedRSVP === 'yes', true);
+        }
+
+        // Buntes Konfetti-Feuerwerk
+        function triggerConfetti() {
+            var duration = 3 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#f59e0b', '#10b981', '#3b82f6', '#ec4899', '#f43f5e']
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#f59e0b', '#10b981', '#3b82f6', '#ec4899', '#f43f5e']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        // Musik-Wünsche Logik
+        let songWishes = ["Lauri - Das rote Pferd 🐴", "Deine Freunde - Schokolade 🍫"];
+        const savedSongs = localStorage.getItem('sommergeburtstag_songs');
+        if (savedSongs) {
+            songWishes = JSON.parse(savedSongs);
+        }
+
+        function renderSongs() {
+            const list = document.getElementById('song-list');
+            list.innerHTML = '';
+            songWishes.forEach((song, index) => {
+                const li = document.createElement('li');
+                li.className = "flex justify-between items-center bg-amber-50/40 px-3 py-1.5 rounded-lg border border-amber-100/30 text-xs";
+                li.innerHTML = `
+                    <span class="text-amber-900"><i class="fa-solid fa-music text-[10px] mr-2 text-amber-500"></i> ${escapeHtml(song)}</span>
+                    <button onclick="removeSong(${index})" class="text-amber-300 hover:text-rose-500 transition-colors pl-2">
+                        <i class="fa-solid fa-xmark text-[10px]"></i>
+                    </button>
+                `;
+                list.appendChild(li);
+            });
+        }
+
+        function addSongWish() {
+            const input = document.getElementById('song-input');
+            const song = input.value.trim();
+            if (song) {
+                songWishes.push(song);
+                localStorage.setItem('sommergeburtstag_songs', JSON.stringify(songWishes));
+                renderSongs();
+                input.value = '';
+
+                const success = document.getElementById('song-success');
+                success.classList.remove('hidden');
+                setTimeout(() => success.classList.add('hidden'), 3000);
+            }
+        }
+
+        function removeSong(index) {
+            songWishes.splice(index, 1);
+            localStorage.setItem('sommergeburtstag_songs', JSON.stringify(songWishes));
+            renderSongs();
+        }
+
+        // Hilfsfunktion gegen XSS
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+
+        // Initiale Renderings
+        renderSongs();
+    </script>
+</body>
+</html>
