@@ -17,7 +17,8 @@
     <style>
         body {
             font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(135deg, #fef9c3 0%, #fff7ed 50%, #fee2e2 100%);
+            /* Heller grauer Hintergrund (globale Vorgabe) */
+            background-color: #f3f4f6;
         }
         .serif-title {
             font-family: 'Playfair Display', serif;
@@ -57,8 +58,8 @@
     <div class="absolute bottom-10 right-8 text-4xl floating-element-1 pointer-events-none select-none opacity-60">🍉</div>
 
     <!-- Haupt-Einladungskarte -->
-    <main class="w-full max-w-xl bg-white/80 backdrop-blur-md rounded-3xl shadow-xl border border-orange-100/50 p-6 sm:p-8 mt-6 sm:mt-10 mb-6 relative z-10 transition-all duration-300 hover:shadow-2xl">
-        
+    <main class="w-full max-w-xl bg-white/90 backdrop-blur-md rounded-3xl shadow-xl border border-orange-100/50 p-6 sm:p-8 mt-6 sm:mt-10 mb-6 relative z-10 transition-all duration-300 hover:shadow-2xl">
+
         <!-- Blumenkranz / Deko Header -->
         <div class="text-center mb-6">
             <span class="text-amber-500 text-xs font-bold uppercase tracking-widest bg-amber-100 px-3 py-1 rounded-full">Hurra, wir feiern! 🎉</span>
@@ -79,7 +80,7 @@
         <div class="bg-amber-50/70 border border-amber-100 rounded-2xl p-6 text-center mb-8 relative overflow-hidden">
             <!-- Sonnenstrahlen-Deko im Hintergrund -->
             <div class="absolute -right-8 -top-8 w-24 h-24 bg-amber-200/20 rounded-full blur-xl"></div>
-            
+
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-amber-200/60">
                 <!-- Datum -->
                 <div class="flex flex-col items-center justify-center p-2">
@@ -152,8 +153,8 @@
         <div class="border-t border-amber-100 pt-8 mb-8">
             <h3 class="serif-title text-2xl font-bold text-amber-950 text-center mb-1">Bist du dabei?</h3>
             <p class="text-xs text-amber-700 text-center mb-6">Bitte sag uns bis zum 15. Juli Bescheid, ob du mitfeierst!</p>
-            
-            <!-- Namen-Eingabefeld (Neu & Pflicht vor dem Abschicken) -->
+
+            <!-- Namen-Eingabefeld (Pflicht vor dem Abschicken) -->
             <div id="rsvp-name-container" class="max-w-xs mx-auto mb-6">
                 <label for="rsvp-name" class="block text-xs font-bold text-amber-800 uppercase tracking-wider mb-2 text-center">Name des Kindes</label>
                 <input type="text" id="rsvp-name" placeholder="z. B. Jonas oder Hanna ✍️" class="w-full text-center px-4 py-2.5 border border-amber-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white/70 font-semibold text-amber-950 placeholder:text-amber-700/40 transition-all">
@@ -177,7 +178,7 @@
                 <p class="font-bold text-lg">Super! 🎉 Wir freuen uns riesig auf <span id="rsvp-success-name">dich</span>!</p>
                 <button onclick="resetRSVP()" class="text-xs text-emerald-600 underline mt-2 hover:text-emerald-800">Antwort ändern</button>
             </div>
-            
+
             <!-- Bestätigungsnachricht (Absage) -->
             <div id="rsvp-status-declined" class="hidden text-center bg-rose-50 border border-rose-200 rounded-2xl p-4 text-rose-900">
                 <p class="font-bold">Schade! 😢 Wir werden <span id="rsvp-declined-name">dich</span> sehr vermissen.</p>
@@ -191,7 +192,7 @@
                 <span>🎵</span> Kinder-Disko-Wünsche
             </h3>
             <p class="text-xs text-amber-700 mb-4">Welcher Song darf bei unserer Stoptanz- oder Disko-Runde nicht fehlen?</p>
-            
+
             <div class="flex gap-2">
                 <input type="text" id="song-input" placeholder="Liedtitel oder Band (z.B. Rolf Zuckowski, Volker Rosin...)" class="flex-1 px-4 py-2 border border-amber-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white/50 text-sm">
                 <button onclick="addSongWish()" class="bg-amber-950 hover:bg-black text-white font-bold px-4 py-2 rounded-xl text-sm transition-colors shadow-md">
@@ -202,7 +203,7 @@
                 Dein Wunschlied steht auf der Liste! 🎶
             </div>
             <ul id="song-list" class="mt-3 space-y-1 text-xs text-amber-900">
-                <!-- Dynamische Songliste -->
+                <!-- Dynamische Songliste (vom Server) -->
             </ul>
         </div>
 
@@ -216,7 +217,7 @@
             </span>
             <i id="generator-chevron" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
         </button>
-        
+
         <div id="generator-content" class="hidden mt-4 pt-4 border-t border-amber-200/50 space-y-3">
             <p class="text-xs text-amber-900 leading-relaxed">
                 Tippe unten den Namen des eingeladenen Kindes ein. Unser Generator erstellt dir sofort einen individuellen Link mit einem verschlüsselten (Base64) Parameter. Wenn das Kind diesen Link öffnet, wird es direkt namentlich begrüßt!
@@ -227,7 +228,7 @@
                     Link erstellen
                 </button>
             </div>
-            
+
             <div id="generated-link-box" class="hidden space-y-2 pt-2">
                 <p class="text-xs font-bold text-amber-950">Dein personalisierter Link:</p>
                 <div class="flex items-center gap-2 bg-white/90 p-3 rounded-xl border border-amber-200 text-xs text-amber-950 break-all shadow-inner">
@@ -238,6 +239,10 @@
                 </div>
                 <p id="copy-confirm" class="hidden text-xs text-emerald-600 font-bold flex items-center gap-1">
                     <span>✓</span> In Zwischenablage kopiert! Bereit zum Verschicken.
+                </p>
+                <p class="text-[11px] text-amber-700/80 pt-1">
+                    Die Gästeliste mit allen Antworten findest du unter
+                    <a href="/admin" class="underline font-semibold hover:text-amber-900">/admin</a>.
                 </p>
             </div>
         </div>
@@ -272,9 +277,7 @@
                 try {
                     const guestName = b64_to_utf8(encodedGuest);
                     if (guestName.trim()) {
-                        // Personalisierten Gruß einsetzen
                         document.getElementById('guest-greeting').innerHTML = `Hallo liebe/r ${escapeHtml(guestName)}! 🍰🍭`;
-                        // Namen auch direkt in das RSVP-Eingabefeld vorschreiben
                         document.getElementById('rsvp-name').value = guestName;
                     }
                 } catch (e) {
@@ -297,8 +300,6 @@
             if (!name) return;
 
             const b64 = utf8_to_b64(name);
-            
-            // Ermittelt die aktuelle URL ohne alte Parameter
             const baseUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
             const finalUrl = `${baseUrl}?g=${b64}`;
 
@@ -308,8 +309,6 @@
 
         function copyGeneratedLink() {
             const urlText = document.getElementById('generated-url').innerText;
-            
-            // Clipboard Fallback für iframe-Umgebungen
             const el = document.createElement('textarea');
             el.value = urlText;
             document.body.appendChild(el);
@@ -319,9 +318,7 @@
 
             const confirmMsg = document.getElementById('copy-confirm');
             confirmMsg.classList.remove('hidden');
-            setTimeout(() => {
-                confirmMsg.classList.add('hidden');
-            }, 3000);
+            setTimeout(() => confirmMsg.classList.add('hidden'), 3000);
         }
 
         // Countdown Timer Logik
@@ -330,10 +327,9 @@
             const difference = targetDate - now;
 
             if (difference < 0) {
-                document.getElementById('countdown-days').innerText = '00';
-                document.getElementById('countdown-hours').innerText = '00';
-                document.getElementById('countdown-minutes').innerText = '00';
-                document.getElementById('countdown-seconds').innerText = '00';
+                ['days', 'hours', 'minutes', 'seconds'].forEach((u) => {
+                    document.getElementById('countdown-' + u).innerText = '00';
+                });
                 return;
             }
 
@@ -348,11 +344,10 @@
             document.getElementById('countdown-seconds').innerText = String(seconds).padStart(2, '0');
         }
 
-        // Timer sekündlich updaten
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // Ort-Bearbeitungs-Logik
+        // Ort-Bearbeitungs-Logik (lokal pro Gerät gespeichert)
         const locationElement = document.getElementById('event-location');
         locationElement.addEventListener('click', () => {
             const currentLoc = locationElement.innerText.trim();
@@ -363,16 +358,13 @@
             }
         });
 
-        // Gespeicherten Ort laden (Standardwert auf neue Adresse setzen)
         const savedLocation = localStorage.getItem('sommergeburtstag_location');
         if (savedLocation) {
             locationElement.innerText = savedLocation;
-        } else {
-            locationElement.innerText = "Zugweg 12, Köln Südstadt";
         }
 
-        // RSVP / Zu- und Absagen Logik
-        function handleRSVP(isComing, isRestoring = false) {
+        // RSVP / Zu- und Absagen – wird an den Server gesendet
+        async function handleRSVP(isComing) {
             const nameInput = document.getElementById('rsvp-name');
             const name = nameInput.value.trim();
             const errorElement = document.getElementById('rsvp-name-error');
@@ -382,40 +374,42 @@
                 errorElement.classList.remove('hidden');
                 nameInput.classList.add('border-rose-400', 'bg-rose-50/50', 'animate-shake');
                 nameInput.focus();
-                
-                // Rüttel-Klasse nach Animation wieder entfernen
-                setTimeout(() => {
-                    nameInput.classList.remove('animate-shake');
-                }, 400);
+                setTimeout(() => nameInput.classList.remove('animate-shake'), 400);
                 return;
             }
 
-            // Validierungsstile zurücksetzen
             errorElement.classList.add('hidden');
             nameInput.classList.remove('border-rose-400', 'bg-rose-50/50');
 
-            const actionsDiv = document.getElementById('rsvp-actions');
-            const nameContainer = document.getElementById('rsvp-name-container');
-            const statusSuccess = document.getElementById('rsvp-status');
-            const statusDeclined = document.getElementById('rsvp-status-declined');
+            try {
+                const res = await fetch('/api/rsvp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, attending: isComing }),
+                });
+                if (!res.ok) throw new Error('Serverfehler');
+            } catch (e) {
+                alert('Ups, das hat nicht geklappt. Bitte versuche es gleich noch einmal.');
+                return;
+            }
 
-            // Bedienelemente ausblenden
-            actionsDiv.classList.add('hidden');
-            nameContainer.classList.add('hidden');
+            showRsvpStatus(isComing, name, true);
+            localStorage.setItem('sommergeburtstag_rsvp', isComing ? 'yes' : 'no');
+            localStorage.setItem('sommergeburtstag_rsvp_name', name);
+        }
+
+        function showRsvpStatus(isComing, name, animate) {
+            document.getElementById('rsvp-actions').classList.add('hidden');
+            document.getElementById('rsvp-name-container').classList.add('hidden');
 
             if (isComing) {
                 document.getElementById('rsvp-success-name').innerText = name;
-                statusSuccess.classList.remove('hidden');
-                if (!isRestoring) {
-                    triggerConfetti();
-                }
+                document.getElementById('rsvp-status').classList.remove('hidden');
+                if (animate) triggerConfetti();
             } else {
                 document.getElementById('rsvp-declined-name').innerText = name;
-                statusDeclined.classList.remove('hidden');
+                document.getElementById('rsvp-status-declined').classList.remove('hidden');
             }
-
-            localStorage.setItem('sommergeburtstag_rsvp', isComing ? 'yes' : 'no');
-            localStorage.setItem('sommergeburtstag_rsvp_name', name);
         }
 
         function resetRSVP() {
@@ -423,18 +417,16 @@
             document.getElementById('rsvp-name-container').classList.remove('hidden');
             document.getElementById('rsvp-status').classList.add('hidden');
             document.getElementById('rsvp-status-declined').classList.add('hidden');
-            
-            // Name nicht löschen, sondern stehenlassen, damit man ihn korrigieren kann
             localStorage.removeItem('sommergeburtstag_rsvp');
             localStorage.removeItem('sommergeburtstag_rsvp_name');
         }
 
-        // Gespeichertes RSVP laden
+        // Eigene gespeicherte Antwort wiederherstellen (nur Anzeige auf diesem Gerät)
         const savedRSVP = localStorage.getItem('sommergeburtstag_rsvp');
         const savedName = localStorage.getItem('sommergeburtstag_rsvp_name');
         if (savedRSVP && savedName) {
             document.getElementById('rsvp-name').value = savedName;
-            handleRSVP(savedRSVP === 'yes', true);
+            showRsvpStatus(savedRSVP === 'yes', savedName, false);
         }
 
         // Buntes Konfetti-Feuerwerk
@@ -443,85 +435,82 @@
             var end = Date.now() + duration;
 
             (function frame() {
-                confetti({
-                    particleCount: 5,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0 },
-                    colors: ['#f59e0b', '#10b981', '#3b82f6', '#ec4899', '#f43f5e']
-                });
-                confetti({
-                    particleCount: 5,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1 },
-                    colors: ['#f59e0b', '#10b981', '#3b82f6', '#ec4899', '#f43f5e']
-                });
-
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
+                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#f59e0b', '#10b981', '#3b82f6', '#ec4899', '#f43f5e'] });
+                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#f59e0b', '#10b981', '#3b82f6', '#ec4899', '#f43f5e'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
             }());
         }
 
-        // Musik-Wünsche Logik
-        let songWishes = ["Lauri - Das rote Pferd 🐴", "Deine Freunde - Schokolade 🍫"];
-        const savedSongs = localStorage.getItem('sommergeburtstag_songs');
-        if (savedSongs) {
-            songWishes = JSON.parse(savedSongs);
+        // Musik-Wünsche – werden zentral auf dem Server gespeichert
+        async function loadSongs() {
+            try {
+                const res = await fetch('/api/songs');
+                const songs = await res.json();
+                renderSongs(songs);
+            } catch (e) {
+                console.warn('Songs konnten nicht geladen werden.', e);
+            }
         }
 
-        function renderSongs() {
+        function renderSongs(songs) {
             const list = document.getElementById('song-list');
             list.innerHTML = '';
-            songWishes.forEach((song, index) => {
+            songs.forEach((song) => {
                 const li = document.createElement('li');
                 li.className = "flex justify-between items-center bg-amber-50/40 px-3 py-1.5 rounded-lg border border-amber-100/30 text-xs";
                 li.innerHTML = `
-                    <span class="text-amber-900"><i class="fa-solid fa-music text-[10px] mr-2 text-amber-500"></i> ${escapeHtml(song)}</span>
-                    <button onclick="removeSong(${index})" class="text-amber-300 hover:text-rose-500 transition-colors pl-2">
+                    <span class="text-amber-900"><i class="fa-solid fa-music text-[10px] mr-2 text-amber-500"></i> ${escapeHtml(song.title)}</span>
+                    <button class="text-amber-300 hover:text-rose-500 transition-colors pl-2" aria-label="Entfernen">
                         <i class="fa-solid fa-xmark text-[10px]"></i>
                     </button>
                 `;
+                li.querySelector('button').addEventListener('click', () => removeSong(song.id));
                 list.appendChild(li);
             });
         }
 
-        function addSongWish() {
+        async function addSongWish() {
             const input = document.getElementById('song-input');
-            const song = input.value.trim();
-            if (song) {
-                songWishes.push(song);
-                localStorage.setItem('sommergeburtstag_songs', JSON.stringify(songWishes));
-                renderSongs();
-                input.value = '';
+            const title = input.value.trim();
+            if (!title) return;
 
-                const success = document.getElementById('song-success');
-                success.classList.remove('hidden');
-                setTimeout(() => success.classList.add('hidden'), 3000);
+            try {
+                const res = await fetch('/api/songs', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title }),
+                });
+                if (!res.ok) throw new Error('Serverfehler');
+            } catch (e) {
+                alert('Der Wunsch konnte nicht gespeichert werden. Bitte versuche es erneut.');
+                return;
             }
+
+            input.value = '';
+            await loadSongs();
+
+            const success = document.getElementById('song-success');
+            success.classList.remove('hidden');
+            setTimeout(() => success.classList.add('hidden'), 3000);
         }
 
-        function removeSong(index) {
-            songWishes.splice(index, 1);
-            localStorage.setItem('sommergeburtstag_songs', JSON.stringify(songWishes));
-            renderSongs();
+        async function removeSong(id) {
+            try {
+                await fetch('/api/songs/' + id, { method: 'DELETE' });
+            } catch (e) {
+                console.warn('Song konnte nicht entfernt werden.', e);
+            }
+            await loadSongs();
         }
 
         // Hilfsfunktion gegen XSS
         function escapeHtml(text) {
-            const map = {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#039;'
-            };
-            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+            return String(text).replace(/[&<>"']/g, (m) => map[m]);
         }
 
-        // Initiale Renderings
-        renderSongs();
+        // Songs beim Laden vom Server holen
+        loadSongs();
     </script>
 </body>
 </html>
