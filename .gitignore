@@ -3,3 +3,6 @@ data/
 *.log
 .env
 .DS_Store
+
+# Großes Quell-Foto (nur optimierte Version unter public/img wird genutzt)
+Subject 3.png
