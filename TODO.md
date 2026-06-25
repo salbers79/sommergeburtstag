@@ -16,7 +16,7 @@ Branch: `feature/render-backend`
 ## Offen / Ideen 💡
 - [ ] Auf GitHub pushen und auf Render als Blueprint deployen
 - [ ] `ADMIN_PASSWORD` auf Render setzen
-- [ ] Custom Domain `sommerfest.lafete.io` in Render + CNAME beim DNS-Anbieter einrichten
+- [ ] Custom Domain `sommergeburtstag.lafete.io` in Render + CNAME beim DNS-Anbieter einrichten
 - [ ] Optional: Ort der Veranstaltung serverseitig statt nur lokal speichern
 - [ ] Optional: E-Mail-Benachrichtigung an die Eltern bei neuer Zusage
 - [ ] Optional: Musikwünsche im Admin-Bereich anzeigen
