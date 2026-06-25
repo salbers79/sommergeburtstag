@@ -51,11 +51,16 @@
 </head>
 <body class="min-h-screen flex flex-col items-center justify-start p-4 sm:p-6 relative overflow-x-hidden selection:bg-amber-200">
 
-    <!-- Dekorative schwebende Elemente im Hintergrund -->
-    <div class="absolute top-10 left-4 sm:left-10 text-4xl sm:text-5xl floating-element-1 pointer-events-none select-none opacity-80">🌸</div>
-    <div class="absolute top-40 right-4 sm:right-16 text-4xl sm:text-5xl floating-element-2 pointer-events-none select-none opacity-80">☀️</div>
-    <div class="absolute bottom-40 left-6 text-4xl floating-element-2 pointer-events-none select-none opacity-60">🍋</div>
-    <div class="absolute bottom-10 right-8 text-4xl floating-element-1 pointer-events-none select-none opacity-60">🍉</div>
+    <!-- Dekorative schwebende Elemente – an einen mittigen Container gebunden,
+         damit sie auf großen Monitoren nah an der Karte bleiben statt in den Ecken -->
+    <div class="absolute inset-0 z-0 pointer-events-none select-none">
+        <div class="relative mx-auto h-full w-full max-w-3xl">
+            <div class="absolute top-12 left-2 sm:-left-2 lg:-left-8 text-4xl sm:text-5xl floating-element-1 opacity-80">🌸</div>
+            <div class="absolute top-44 right-2 sm:-right-2 lg:-right-8 text-4xl sm:text-5xl floating-element-2 opacity-80">☀️</div>
+            <div class="absolute bottom-44 left-2 sm:-left-2 lg:-left-6 text-4xl floating-element-2 opacity-60">🍋</div>
+            <div class="absolute bottom-16 right-2 sm:-right-2 lg:-right-6 text-4xl floating-element-1 opacity-60">🍉</div>
+        </div>
+    </div>
 
     <!-- Haupt-Einladungskarte -->
     <main class="w-full max-w-xl bg-white/90 backdrop-blur-md rounded-3xl shadow-xl border border-orange-100/50 p-6 sm:p-8 mt-6 sm:mt-10 mb-6 relative z-10 transition-all duration-300 hover:shadow-2xl">
