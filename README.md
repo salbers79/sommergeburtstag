@@ -40,6 +40,17 @@ Dann `http://localhost:3000/admin` öffnen (Benutzername beliebig, Passwort = `g
 
 `DATABASE_URL` wird automatisch aus der angelegten Datenbank verbunden.
 
+### Eigene Domain: `sommerfest.lafete.io`
+
+1. Im Render-Service unter **Settings → Custom Domains** → `sommerfest.lafete.io` hinzufügen.
+2. Render zeigt einen Zielwert an. Beim DNS-Anbieter der Domain `lafete.io` einen
+   **CNAME**-Eintrag anlegen:
+   `sommerfest` → `<dein-service>.onrender.com` (genauer Zielwert siehe Render).
+3. Render stellt automatisch ein TLS-Zertifikat aus, sobald das DNS aufgelöst wird.
+
+Der Link-Generator im Admin-Bereich nutzt die aufgerufene Domain automatisch,
+erzeugt also nach der Umstellung Links wie `https://sommerfest.lafete.io/?g=…`.
+
 ## Umgebungsvariablen
 
 | Variable         | Beschreibung                                              |

@@ -19,6 +19,27 @@
             <p class="text-slate-500 text-sm">Alle Zu- und Absagen zum Sommergeburtstag</p>
         </header>
 
+        <!-- Einladungs-Link-Generator -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 mb-6">
+            <h2 class="serif text-lg font-bold text-slate-900 mb-1">🔗 Einladungs-Link erstellen</h2>
+            <p class="text-xs text-slate-500 mb-4">Name des eingeladenen Kindes eingeben – das Kind wird über den Link namentlich begrüßt.</p>
+            <div class="flex flex-col sm:flex-row gap-2">
+                <input type="text" id="generator-name" placeholder="Name des Kindes (z.B. Jonas)" class="flex-1 px-4 py-2 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-400 text-sm">
+                <button onclick="generateGuestLink()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold px-4 py-2 rounded-xl text-sm transition-all">
+                    Link erstellen
+                </button>
+            </div>
+            <div id="generated-link-box" class="hidden mt-3 space-y-2">
+                <div class="flex items-center gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs text-slate-800 break-all">
+                    <span id="generated-url" class="flex-1 select-all font-mono"></span>
+                    <button onclick="copyGeneratedLink()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 px-3 py-2 rounded-lg transition-all font-bold shrink-0 active:scale-95">
+                        Kopieren
+                    </button>
+                </div>
+                <p id="copy-confirm" class="hidden text-xs text-emerald-600 font-bold">✓ In Zwischenablage kopiert!</p>
+            </div>
+        </div>
+
         <!-- Zusammenfassung -->
         <div class="grid grid-cols-3 gap-3 mb-6">
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 text-center">
@@ -55,6 +76,33 @@
     </div>
 
     <script>
+        // Link-Generator
+        function utf8_to_b64(str) {
+            return btoa(unescape(encodeURIComponent(str)));
+        }
+
+        function generateGuestLink() {
+            const name = document.getElementById('generator-name').value.trim();
+            if (!name) return;
+            const finalUrl = `${window.location.origin}/?g=${utf8_to_b64(name)}`;
+            document.getElementById('generated-url').innerText = finalUrl;
+            document.getElementById('generated-link-box').classList.remove('hidden');
+            document.getElementById('copy-confirm').classList.add('hidden');
+        }
+
+        function copyGeneratedLink() {
+            const urlText = document.getElementById('generated-url').innerText;
+            const el = document.createElement('textarea');
+            el.value = urlText;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            const confirmMsg = document.getElementById('copy-confirm');
+            confirmMsg.classList.remove('hidden');
+            setTimeout(() => confirmMsg.classList.add('hidden'), 3000);
+        }
+
         function escapeHtml(text) {
             const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
             return String(text).replace(/[&<>"']/g, (m) => map[m]);

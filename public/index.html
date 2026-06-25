@@ -154,7 +154,13 @@
             <h3 class="serif-title text-2xl font-bold text-amber-950 text-center mb-1">Bist du dabei?</h3>
             <p class="text-xs text-amber-700 text-center mb-6">Bitte sag uns bis zum 15. Juli Bescheid, ob du mitfeierst!</p>
 
-            <!-- Namen-Eingabefeld (Pflicht vor dem Abschicken) -->
+            <!-- Fester Name bei personalisiertem Einladungslink -->
+            <div id="rsvp-name-fixed" class="hidden max-w-xs mx-auto mb-6 text-center">
+                <span class="block text-xs font-bold text-amber-800 uppercase tracking-wider mb-2">Du feierst mit als</span>
+                <span id="rsvp-name-display" class="inline-block bg-amber-100 text-amber-950 font-bold px-4 py-2 rounded-xl"></span>
+            </div>
+
+            <!-- Namen-Eingabefeld (Pflicht vor dem Abschicken, ohne personalisierten Link) -->
             <div id="rsvp-name-container" class="max-w-xs mx-auto mb-6">
                 <label for="rsvp-name" class="block text-xs font-bold text-amber-800 uppercase tracking-wider mb-2 text-center">Name des Kindes</label>
                 <input type="text" id="rsvp-name" placeholder="z. B. Jonas oder Hanna ✍️" class="w-full text-center px-4 py-2.5 border border-amber-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400 bg-white/70 font-semibold text-amber-950 placeholder:text-amber-700/40 transition-all">
@@ -209,45 +215,6 @@
 
     </main>
 
-    <!-- LINK-GENERATOR (Nur für die einladenden Eltern sichtbar/nutzbar) -->
-    <section class="w-full max-w-xl bg-amber-50/90 backdrop-blur-md rounded-2xl shadow-md border border-amber-200/60 p-4 mb-16 relative z-10 transition-all">
-        <button onclick="toggleGenerator()" class="w-full flex justify-between items-center text-sm font-bold text-amber-950 hover:text-amber-800 transition-colors">
-            <span class="flex items-center gap-2">
-                <span>🔗</span> Einladungs-Links für Gäste erstellen
-            </span>
-            <i id="generator-chevron" class="fa-solid fa-chevron-down transition-transform duration-300"></i>
-        </button>
-
-        <div id="generator-content" class="hidden mt-4 pt-4 border-t border-amber-200/50 space-y-3">
-            <p class="text-xs text-amber-900 leading-relaxed">
-                Tippe unten den Namen des eingeladenen Kindes ein. Unser Generator erstellt dir sofort einen individuellen Link mit einem verschlüsselten (Base64) Parameter. Wenn das Kind diesen Link öffnet, wird es direkt namentlich begrüßt!
-            </p>
-            <div class="flex flex-col sm:flex-row gap-2">
-                <input type="text" id="generator-name" placeholder="Name des Kindes (z.B. Jonas)" class="flex-1 px-4 py-2 border border-amber-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white/95 text-sm">
-                <button onclick="generateGuestLink()" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-4 py-2 rounded-xl text-sm transition-all shadow-sm">
-                    Link erstellen
-                </button>
-            </div>
-
-            <div id="generated-link-box" class="hidden space-y-2 pt-2">
-                <p class="text-xs font-bold text-amber-950">Dein personalisierter Link:</p>
-                <div class="flex items-center gap-2 bg-white/90 p-3 rounded-xl border border-amber-200 text-xs text-amber-950 break-all shadow-inner">
-                    <span id="generated-url" class="flex-1 select-all font-mono font-medium"></span>
-                    <button onclick="copyGeneratedLink()" class="bg-amber-100 hover:bg-amber-200 text-amber-950 px-3 py-2 rounded-lg transition-all font-bold flex items-center gap-1.5 shrink-0 shadow-sm active:scale-95">
-                        <i class="fa-regular fa-copy"></i> Kopieren
-                    </button>
-                </div>
-                <p id="copy-confirm" class="hidden text-xs text-emerald-600 font-bold flex items-center gap-1">
-                    <span>✓</span> In Zwischenablage kopiert! Bereit zum Verschicken.
-                </p>
-                <p class="text-[11px] text-amber-700/80 pt-1">
-                    Die Gästeliste mit allen Antworten findest du unter
-                    <a href="/admin" class="underline font-semibold hover:text-amber-900">/admin</a>.
-                </p>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer mit Hinweisen -->
     <footer class="text-center text-xs text-amber-800/60 pb-10 z-10 max-w-md">
         <p>Erstellt für den Sommergeburtstag 2026 von Charlotte & Emilia.</p>
@@ -259,67 +226,34 @@
         // Ziel-Datum für den Countdown: 25. Juli 2026, 14:00 Uhr
         const targetDate = new Date('2026-07-25T14:00:00').getTime();
 
-        // Base64 UTF-8 sichere Funktionen
-        function utf8_to_b64(str) {
-            return btoa(unescape(encodeURIComponent(str)));
-        }
-
+        // Base64 UTF-8 sichere Dekodierung des Namens aus dem Einladungslink
         function b64_to_utf8(str) {
             return decodeURIComponent(escape(atob(str)));
         }
 
-        // Überprüfung auf URL-Parameter beim Laden der Seite
+        // Name aus dem personalisierten Einladungslink (?g=...), falls vorhanden
+        let guestNameFromLink = null;
+
         window.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const encodedGuest = urlParams.get('g');
 
             if (encodedGuest) {
                 try {
-                    const guestName = b64_to_utf8(encodedGuest);
-                    if (guestName.trim()) {
+                    const guestName = b64_to_utf8(encodedGuest).trim();
+                    if (guestName) {
+                        guestNameFromLink = guestName;
                         document.getElementById('guest-greeting').innerHTML = `Hallo liebe/r ${escapeHtml(guestName)}! 🍰🍭`;
-                        document.getElementById('rsvp-name').value = guestName;
+                        // Namen als festen Text anzeigen statt im Eingabefeld vorauszufüllen
+                        document.getElementById('rsvp-name-display').innerText = guestName;
+                        document.getElementById('rsvp-name-fixed').classList.remove('hidden');
+                        document.getElementById('rsvp-name-container').classList.add('hidden');
                     }
                 } catch (e) {
                     console.warn("Der Base64-Parameter konnte nicht dekodiert werden.", e);
                 }
             }
         });
-
-        // Link-Generator Funktionen
-        function toggleGenerator() {
-            const content = document.getElementById('generator-content');
-            const chevron = document.getElementById('generator-chevron');
-            content.classList.toggle('hidden');
-            chevron.classList.toggle('rotate-180');
-        }
-
-        function generateGuestLink() {
-            const nameInput = document.getElementById('generator-name');
-            const name = nameInput.value.trim();
-            if (!name) return;
-
-            const b64 = utf8_to_b64(name);
-            const baseUrl = window.location.protocol + '//' + window.location.host + window.location.pathname;
-            const finalUrl = `${baseUrl}?g=${b64}`;
-
-            document.getElementById('generated-url').innerText = finalUrl;
-            document.getElementById('generated-link-box').classList.remove('hidden');
-        }
-
-        function copyGeneratedLink() {
-            const urlText = document.getElementById('generated-url').innerText;
-            const el = document.createElement('textarea');
-            el.value = urlText;
-            document.body.appendChild(el);
-            el.select();
-            document.execCommand('copy');
-            document.body.removeChild(el);
-
-            const confirmMsg = document.getElementById('copy-confirm');
-            confirmMsg.classList.remove('hidden');
-            setTimeout(() => confirmMsg.classList.add('hidden'), 3000);
-        }
 
         // Countdown Timer Logik
         function updateCountdown() {
@@ -366,10 +300,11 @@
         // RSVP / Zu- und Absagen – wird an den Server gesendet
         async function handleRSVP(isComing) {
             const nameInput = document.getElementById('rsvp-name');
-            const name = nameInput.value.trim();
+            // Name aus dem Einladungslink hat Vorrang, sonst aus dem Eingabefeld
+            const name = guestNameFromLink || nameInput.value.trim();
             const errorElement = document.getElementById('rsvp-name-error');
 
-            // Validierung: Wenn das Namensfeld leer ist
+            // Validierung nur nötig, wenn kein Name aus dem Link kommt
             if (!name) {
                 errorElement.classList.remove('hidden');
                 nameInput.classList.add('border-rose-400', 'bg-rose-50/50', 'animate-shake');
@@ -401,6 +336,7 @@
         function showRsvpStatus(isComing, name, animate) {
             document.getElementById('rsvp-actions').classList.add('hidden');
             document.getElementById('rsvp-name-container').classList.add('hidden');
+            document.getElementById('rsvp-name-fixed').classList.add('hidden');
 
             if (isComing) {
                 document.getElementById('rsvp-success-name').innerText = name;
@@ -414,7 +350,12 @@
 
         function resetRSVP() {
             document.getElementById('rsvp-actions').classList.remove('hidden');
-            document.getElementById('rsvp-name-container').classList.remove('hidden');
+            // Je nach Quelle den festen Namen oder das Eingabefeld wieder zeigen
+            if (guestNameFromLink) {
+                document.getElementById('rsvp-name-fixed').classList.remove('hidden');
+            } else {
+                document.getElementById('rsvp-name-container').classList.remove('hidden');
+            }
             document.getElementById('rsvp-status').classList.add('hidden');
             document.getElementById('rsvp-status-declined').classList.add('hidden');
             localStorage.removeItem('sommergeburtstag_rsvp');
