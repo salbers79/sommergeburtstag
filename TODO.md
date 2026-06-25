@@ -13,6 +13,13 @@ Branch: `feature/render-backend`
 - [x] `render.yaml` (Web-Service + kostenlose PostgreSQL-DB)
 - [x] README mit Deploy-Anleitung
 
+## Erledigt (Erweiterungen) ✅
+- [x] Foto von Charlotte & Emilia oben in der Einladung
+- [x] Personalisierter Name als großer Banner ganz oben (mobil sofort sichtbar)
+- [x] Gästeliste/Whitelist: nur eingeladene Kinder können sich anmelden (RSVP 403 sonst)
+- [x] Admin: Gästeliste verwalten; Link-Erstellung whitelistet automatisch
+- [x] WhatsApp-/Social-Vorschau (Open Graph) mit Name + Bild, serverseitig je Link
+
 ## Offen / Ideen 💡
 - [ ] Auf GitHub pushen und auf Render als Blueprint deployen
 - [ ] `ADMIN_PASSWORD` auf Render setzen

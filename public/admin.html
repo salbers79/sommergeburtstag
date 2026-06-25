@@ -40,6 +40,19 @@
             </div>
         </div>
 
+        <!-- Gästeliste / eingeladene Kinder -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 mb-6">
+            <h2 class="serif text-lg font-bold text-slate-900 mb-1">✅ Eingeladene Kinder</h2>
+            <p class="text-xs text-slate-500 mb-4">Nur Kinder auf dieser Liste können sich anmelden. Beim Erstellen eines Links wird der Name automatisch hinzugefügt.</p>
+            <div class="flex flex-col sm:flex-row gap-2">
+                <input type="text" id="invitee-name" placeholder="Name des Kindes" class="flex-1 px-4 py-2 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-400 text-sm">
+                <button onclick="addInvitee()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-xl text-sm transition-all">
+                    Hinzufügen
+                </button>
+            </div>
+            <ul id="invitee-list" class="mt-4 flex flex-wrap gap-2"></ul>
+        </div>
+
         <!-- Zusammenfassung -->
         <div class="grid grid-cols-3 gap-3 mb-6">
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 text-center">
@@ -81,13 +94,60 @@
             return btoa(unescape(encodeURIComponent(str)));
         }
 
-        function generateGuestLink() {
+        async function generateGuestLink() {
             const name = document.getElementById('generator-name').value.trim();
             if (!name) return;
+            // Name automatisch auf die Gästeliste setzen, damit die Anmeldung klappt
+            await fetch('/api/admin/invitees', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name }),
+            }).catch(() => {});
+            loadInvitees();
+
             const finalUrl = `${window.location.origin}/?g=${utf8_to_b64(name)}`;
             document.getElementById('generated-url').innerText = finalUrl;
             document.getElementById('generated-link-box').classList.remove('hidden');
             document.getElementById('copy-confirm').classList.add('hidden');
+        }
+
+        // Gästeliste (eingeladene Kinder)
+        async function loadInvitees() {
+            const res = await fetch('/api/admin/invitees');
+            if (!res.ok) return;
+            const invitees = await res.json();
+            const list = document.getElementById('invitee-list');
+            if (!invitees.length) {
+                list.innerHTML = '<li class="text-xs text-slate-400">Noch keine Kinder eingeladen.</li>';
+                return;
+            }
+            list.innerHTML = '';
+            invitees.forEach((inv) => {
+                const li = document.createElement('li');
+                li.className = 'inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-900 text-sm font-semibold px-3 py-1.5 rounded-full';
+                li.innerHTML = `<span>${escapeHtml(inv.name)}</span>
+                    <button class="text-emerald-400 hover:text-rose-500 transition-colors" aria-label="Entfernen" title="Entfernen">&times;</button>`;
+                li.querySelector('button').addEventListener('click', () => removeInvitee(inv.id));
+                list.appendChild(li);
+            });
+        }
+
+        async function addInvitee() {
+            const input = document.getElementById('invitee-name');
+            const name = input.value.trim();
+            if (!name) return;
+            await fetch('/api/admin/invitees', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name }),
+            });
+            input.value = '';
+            loadInvitees();
+        }
+
+        async function removeInvitee(id) {
+            await fetch('/api/admin/invitees/' + id, { method: 'DELETE' });
+            loadInvitees();
         }
 
         function copyGeneratedLink() {
@@ -150,6 +210,7 @@
         }
 
         load();
+        loadInvitees();
     </script>
 </body>
 </html>

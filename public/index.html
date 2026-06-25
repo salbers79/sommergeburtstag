@@ -67,14 +67,14 @@
 
         <!-- Personalisierter Namens-Banner (steht ganz oben, v. a. wichtig auf dem Handy) -->
         <div id="guest-banner" class="hidden text-center mb-5">
-            <span class="text-[11px] uppercase tracking-widest text-amber-700 font-semibold">Eine Einladung für</span>
-            <p id="guest-banner-name" class="serif-title text-2xl sm:text-3xl font-extrabold text-amber-950 leading-tight mt-0.5"></p>
+            <span class="text-xs sm:text-sm uppercase tracking-widest text-amber-700 font-semibold">Eine Einladung für</span>
+            <p id="guest-banner-name" class="serif-title text-3xl sm:text-4xl font-extrabold text-amber-950 leading-tight mt-1"></p>
         </div>
 
         <!-- Foto von Charlotte & Emilia -->
         <div class="flex justify-center mb-5">
             <img src="/img/charlotte-emilia.png" alt="Charlotte & Emilia"
-                 class="h-40 sm:h-48 w-auto object-contain drop-shadow-md select-none pointer-events-none">
+                 class="h-44 sm:h-56 w-auto object-contain drop-shadow-md select-none pointer-events-none">
         </div>
 
         <!-- Blumenkranz / Deko Header -->
@@ -194,6 +194,12 @@
                 <button onclick="handleRSVP(false)" class="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-rose-400 to-pink-500 text-white font-bold rounded-full shadow-lg shadow-rose-400/20 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2">
                     <i class="fa-solid fa-xmark"></i> Ich kann leider nicht 😢
                 </button>
+            </div>
+
+            <!-- Hinweis, wenn der Name nicht auf der Gästeliste steht -->
+            <div id="rsvp-not-invited" class="hidden text-center bg-amber-50 border border-amber-200 rounded-2xl p-4 mt-4 text-amber-900">
+                <p class="font-semibold">Hmm, diesen Namen finden wir nicht auf unserer Gästeliste. 🤔</p>
+                <p class="text-sm mt-1">Bitte nutze den persönlichen Einladungslink oder frag Charlotte &amp; Emilias Eltern. 😊</p>
             </div>
 
             <!-- Bestätigungsnachricht (Zusage) -->
@@ -336,12 +342,20 @@
             errorElement.classList.add('hidden');
             nameInput.classList.remove('border-rose-400', 'bg-rose-50/50');
 
+            const notInvited = document.getElementById('rsvp-not-invited');
+            notInvited.classList.add('hidden');
+
             try {
                 const res = await fetch('/api/rsvp', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ name, attending: isComing }),
                 });
+                // Name steht nicht auf der Gästeliste
+                if (res.status === 403) {
+                    notInvited.classList.remove('hidden');
+                    return;
+                }
                 if (!res.ok) throw new Error('Serverfehler');
             } catch (e) {
                 alert('Ups, das hat nicht geklappt. Bitte versuche es gleich noch einmal.');
