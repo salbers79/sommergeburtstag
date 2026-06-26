@@ -2,7 +2,8 @@ services:
   - type: web
     name: sommergeburtstag
     runtime: node
-    plan: free
+    # Starter (oder höher) = kein Einschlafen, Seite immer sofort erreichbar
+    plan: starter
     buildCommand: npm install
     startCommand: npm start
     envVars:
